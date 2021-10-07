@@ -9,8 +9,7 @@
 		<Login
 			LoginByPhone="true"
 			LoginByMail="false"
-			>
-			vagin
+			>vagin
 		</Login>
 		<Mailbox>
 			HansonAbadeer@advtm.ds
@@ -36,13 +35,13 @@
 			LoginByPhone="false"
 			LoginByMail="false"
 			>
-			Kashenko			
+			Kashenko
 		</Login>
 		<Mailbox>
 			HansonAbadeer@advtm.ds
 		</Mailbox>
 		<PhoneNumber>
-			+79996661313			
+			+79996661313
 		</PhoneNumber>
 		<Password
 			IsHide="false"
@@ -62,13 +61,13 @@
 			LoginByPhone="false"
 			LoginByMail="true"
 			>
-			GodDamn			
+			GodDamn
 		</Login>
 		<Mailbox>
 			HansonAbadeer@advtm.ds
 		</Mailbox>
-		<PhoneNumber>
-			+79996661313
+		<PhoneNumber
+			>+79996661313
 		</PhoneNumber>
 		<Password
 			IsHide="true"
