@@ -3,79 +3,50 @@
 <Storage>
 	
 	<StorageItem>
-		<Site>
-			https://otus.ru/journal/
-		</Site>
+		<Site>https://otus.ru/journal/</Site>
 		<Login
 			LoginByPhone="true"
 			LoginByMail="false"
-			>vagin
-		</Login>
-		<Mailbox>
-			HansonAbadeer@advtm.ds
-		</Mailbox>
-		<PhoneNumber>
-			+79996661313			
-		</PhoneNumber>
+			>vagin</Login>
+		<Mailbox>HansonAbadeer@advtm.ds</Mailbox>
+		<PhoneNumber>+79996661313</PhoneNumber>
 		<Password
 			IsHide="false"
-			>
-			1a2v3c4d
-			<SettingDate>
-
-			</SettingDate>
+			Value="1a2v3c4d"
+			>				
+			<SettingDate>01.01.2021</SettingDate>
 		</Password>
 	</StorageItem>
 
 	<StorageItem>
-		<Site>
-			https://gb.ru/
-		</Site>
+		<Site>https://gb.ru/</Site>
 		<Login
 			LoginByPhone="false"
 			LoginByMail="false"
-			>
-			Kashenko
-		</Login>
-		<Mailbox>
-			HansonAbadeer@advtm.ds
-		</Mailbox>
-		<PhoneNumber>
-			+79996661313
-		</PhoneNumber>
+			>Kashenko</Login>
+		<Mailbox>HansonAbadeer@advtm.ds</Mailbox>
+		<PhoneNumber>+79996661313</PhoneNumber>
 		<Password
 			IsHide="false"
+			Value="1a2v3c4d"
 			>
-			1a2v3c4d
-			<SettingDate>
-
-			</SettingDate>
+			<SettingDate>01.01.2021</SettingDate>
 		</Password>
 	</StorageItem>
-
+	
 	<StorageItem>
-		<Site>
-			https://skillbox.ru/
-		</Site>
+		<Site>https://skillbox.ru/</Site>
 		<Login
 			LoginByPhone="false"
 			LoginByMail="true"
-			>
-			GodDamn
-		</Login>
-		<Mailbox>
-			HansonAbadeer@advtm.ds
-		</Mailbox>
-		<PhoneNumber
-			>+79996661313
-		</PhoneNumber>
+			>GodDamn</Login>
+		<Mailbox>HansonAbadeer@advtm.ds</Mailbox>
+		<PhoneNumber>+79996661313</PhoneNumber>
 		<Password
 			IsHide="true"
+			Value="r34ll7g00dp4ssw0rd"
 			>
-			r34ll7g00dp4ssw0rd
-			<SettingDate>
-				
-			</SettingDate>
+			<SettingDate>01.01.2021</SettingDate>
 		</Password>
 	</StorageItem>
 	
