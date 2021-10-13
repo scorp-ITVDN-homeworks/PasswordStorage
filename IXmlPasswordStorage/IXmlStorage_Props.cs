@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SeemObject
 {
-    public class SeemAttributes
+    public partial interface IXmlStorage
     {
+
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
+using System.Xml.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using System.Xml;
 
 using SeemObject;
 
@@ -17,35 +18,69 @@ namespace Password.Model
 
         }
 
-        public void SetXmlSource(string source)
+        public object GetXDoc()
         {
-           XmlSource = source;
+            return Xdoc;
         }
 
-        public void GetFileFromSource()
+        public void SetXDocSource(string source)
         {
-            //TODO: проверка корректности файла
-            XmlSourceFile = new FileInfo(XmlSource);
+            Xdoc = new XDocument();
+            Xdoc = XDocument.Load(source);
         }
 
-        public void OpenAsXml()
+        public List<string[]> ViewStorageItems()
         {
-            Reader = new XmlTextReader(XmlSourceFile.Open(FileMode.Open));
+            List<string[]> itemsList = new List<string[]>();
+
+            IEnumerable<XElement> records = Xdoc.Descendants().Where(record => record.NodeType == XmlNodeType.Element && record.Name == Str(NodeName.StorageItem));
+
+            foreach(XElement record in records)
+            {
+                itemsList.Add(StorageItemInfo(record));
+            }
+
+            return itemsList;
         }
 
-        public void OpenAsFile()
+        public string[] StorageItemInfo(XElement storageItem)
         {
-            throw new NotImplementedException();
+            if (storageItem.Name != Str(NodeName.StorageItem)) return null;
+
+            string[] values = new string[] { };
+
+            foreach(XElement record in storageItem.Elements())
+            {
+                Array.Resize(ref values, values.Length + 1);
+                values[values.Length - 1] = $"{record.Name} = {record.Value}";
+            }
+
+            return values;
         }
 
-        public void CloseXml()
+        public static string Str<T>(T name) where T: Enum
         {
-            throw new NotImplementedException();
+            return name.ToString();
         }
 
-        public void CloseFile()
+        public enum NodeName
         {
-            throw new NotImplementedException();
+            Storage,
+            StorageItem,
+            Site,
+            Login,
+            Mailbox,
+            PhoneNumber,
+            Password,
+            SettingDate,
+        }
+
+        public enum AttributeName
+        {
+            LoginByPhone,
+            LoginByMail,
+            IsHide,
+            Value,
         }
     }
 }

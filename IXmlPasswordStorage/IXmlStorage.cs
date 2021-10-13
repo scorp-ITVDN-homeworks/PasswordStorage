@@ -3,14 +3,11 @@ using System.Collections;
 
 namespace SeemObject
 {
-    public interface IXmlStorage
+    public partial interface IXmlStorage
     {
-        public void SetXmlSource(string source);
-        public void GetFileFromSource();
-        public void OpenAsXml();
-        public void OpenAsFile();
-        public void CloseXml();
-        public void CloseFile();
+        public void SetXDocSource(string source);
+        public object GetXDoc();
         
+
     }
 }

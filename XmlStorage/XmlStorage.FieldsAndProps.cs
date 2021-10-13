@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
+using System.Xml.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-using System.Xml;
 
 using SeemObject;
 
@@ -13,25 +14,19 @@ namespace Password.Model
 {
     public partial class XmlStorage : IXmlStorage
     {
-        private XmlTextReader reader;
-        public  XmlTextReader Reader
+        private XDocument xdoc;
+        public  XDocument Xdoc
         {
-            get { return reader; }
-            set { reader = value; }
+            get { return xdoc; }
+            set { xdoc = value; }
         }
 
-        private string xmlSource;
-        public  string XmlSource
+        private string xDocSource;
+        public  string XDocSource
         {
-            get { return xmlSource; }
-            set { xmlSource = value; }
+            get { return xDocSource; }
+            set { xDocSource = value; }
         }
-
-        private FileInfo xmlSourceFile;
-        public FileInfo XmlSourceFile
-        {
-            get { return xmlSourceFile; }
-            set { xmlSourceFile = value; }
-        }
+        
     }
 }
