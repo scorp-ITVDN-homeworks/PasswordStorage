@@ -1,53 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <Storage>
-	
-	<StorageItem>
-		<Site>https://otus.ru/journal/</Site>
-		<Login
-			LoginByPhone="true"
-			LoginByMail="false"
-			>vagin</Login>
-		<Mailbox>HansonAbadeer@advtm.ds</Mailbox>
-		<PhoneNumber>+79996661313</PhoneNumber>
-		<Password
-			IsHide="false"
-			Value="1a2v3c4d"
-			>				
-			<SettingDate>01.01.2021</SettingDate>
-		</Password>
-	</StorageItem>
-
-	<StorageItem>
-		<Site>https://gb.ru/</Site>
-		<Login
-			LoginByPhone="false"
-			LoginByMail="false"
-			>Kashenko</Login>
-		<Mailbox>HansonAbadeer@advtm.ds</Mailbox>
-		<PhoneNumber>+79996661313</PhoneNumber>
-		<Password
-			IsHide="false"
-			Value="1a2v3c4d"
-			>
-			<SettingDate>01.01.2021</SettingDate>
-		</Password>
-	</StorageItem>
-	
-	<StorageItem>
-		<Site>https://skillbox.ru/</Site>
-		<Login
-			LoginByPhone="false"
-			LoginByMail="true"
-			>GodDamn</Login>
-		<Mailbox>HansonAbadeer@advtm.ds</Mailbox>
-		<PhoneNumber>+79996661313</PhoneNumber>
-		<Password
-			IsHide="true"
-			Value="r34ll7g00dp4ssw0rd"
-			>
-			<SettingDate>01.01.2021</SettingDate>
-		</Password>
-	</StorageItem>
-	
+  <StorageItem ChangingDate="14.10.2021">
+    <Site>https://otus.ru/</Site>
+    <Login LoginByPhone="true" LoginByMail="false">vagin</Login>
+    <Mailbox>HansonAbadeer@advtm.ds</Mailbox>
+    <PhoneNumber>+79996661313</PhoneNumber>
+    <Password IsHide="false">AD\/ent7r3<SettingDate>01.01.2021</SettingDate></Password>
+  </StorageItem>
+  <StorageItem ChangingDate="02.02.2021">
+    <Site>https://gb.ru/</Site>
+    <Login LoginByPhone="false" LoginByMail="false">Kashenko</Login>
+    <Mailbox>HansonAbadeer@advtm.ds</Mailbox>
+    <PhoneNumber>+79996661313</PhoneNumber>
+    <Password IsHide="false">
+		1a2v3c4d
+		<SettingDate>01.01.2021</SettingDate></Password>
+  </StorageItem>
+  <StorageItem ChangingDate="02.02.2021">
+    <Site>https://skillbox.ru/</Site>
+    <Login LoginByPhone="false" LoginByMail="true">GodDamn</Login>
+    <Mailbox>HansonAbadeer@advtm.ds</Mailbox>
+    <PhoneNumber>+79996661313</PhoneNumber>
+    <Password IsHide="true">
+			r34ll7g00dp4ssw0rd
+			<SettingDate>01.01.2021</SettingDate></Password>
+  </StorageItem>
 </Storage>

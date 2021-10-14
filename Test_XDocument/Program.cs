@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml;
 using System.Xml.Linq;
 using System.Linq;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Test_XDocument
             XDocument xdoc = new XDocument();
             xdoc = XDocument.Load(@"C:\#csprojects\PasswordStorage\SampleFiles\ReadStorage.xml");
 
-            ShowSome(xdoc);
+            GetSingleValueOfNode(xdoc);
             Console.ReadKey();
 
         }
@@ -26,6 +27,48 @@ namespace Test_XDocument
             {
                 Console.WriteLine(login.Value);
             }
+        }
+
+        static void GetSingleValueOfNode(XDocument xdoc)
+        {
+            IEnumerable<XElement> elements = xdoc.Descendants()
+                .Where(node => node.Name == "StorageItem");
+            foreach(XElement elem in elements)
+            {
+                foreach(XElement item in elem.Descendants())
+                {
+                    if (item.HasElements && ComplexElementHasValue(item))
+                    {
+                        Console.WriteLine($"{item.Name} = {GetComplexElementValue(item)}");
+                        continue;
+                    }
+                    if (!item.HasElements) 
+                    {
+                        Console.WriteLine($"{item.Name} = {item.Value}");
+                    }
+                }
+                Console.WriteLine(new string('-', 50));
+            }
+            
+        }
+
+        static string GetComplexElementValue(XElement xmlTag)
+        {
+            if (xmlTag.FirstNode.NodeType == XmlNodeType.Text)
+            {
+                return xmlTag.FirstNode.ToString().Trim();
+            }
+            if(xmlTag.LastNode.NodeType == XmlNodeType.Text)
+            {
+                return xmlTag.LastNode.ToString().Trim();
+            }
+            return null;
+        }
+
+        static bool ComplexElementHasValue(XElement xmlTag)
+        {
+            if (xmlTag.FirstNode.NodeType == XmlNodeType.Text || xmlTag.LastNode.NodeType == XmlNodeType.Text) return true;
+            return false;
         }
     }
 }

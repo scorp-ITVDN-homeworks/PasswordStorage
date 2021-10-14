@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Xml;
+using System.Linq;
+using System.Xml.Linq;
 using Password.Model;
 
 namespace ModelTest
@@ -8,16 +11,16 @@ namespace ModelTest
         static void Main(string[] args)
         {
             XmlStorage storage = new XmlStorage();
-            storage.SetXDocSource(@"C:\#CSprojects\PasswordStorage\SampleFiles\ReadStorage.xml");
+            storage.XDocSource = @"C:\#CSprojects\PasswordStorage\SampleFiles\ReadStorage.xml";
 
-            foreach(string[] str in storage.ViewStorageItems())
-            {
-                foreach(string s in str)
-                {
-                    Console.WriteLine(s);
-                }
-                Console.WriteLine(new string('-', 50));
-            }
+            storage.SetRootBySiteName(storage.Sites[0], "vagin");
+
+            storage.LoginByPhone = true;
+            storage.Save();
+
+
+
+            storage.Save();
 
             Console.ReadKey();
         }
