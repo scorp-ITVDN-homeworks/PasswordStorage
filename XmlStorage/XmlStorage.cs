@@ -15,7 +15,7 @@ namespace Password.Model
     {
         public XmlStorage()
         {
-
+            
         }
 
         public object GetXDoc()
@@ -27,6 +27,7 @@ namespace Password.Model
         {
             Xdoc = new XDocument();
             Xdoc = XDocument.Load(source);
+            Root = xdoc.Descendants().Where(node => node.Name == "Storage").FirstOrDefault();
         }        
 
         public enum NodeName
@@ -57,6 +58,12 @@ namespace Password.Model
             IsHide,            
         }
 
+        private XElement root;
+        public XElement Root
+        {
+            get { return root; }
+            set { root = value; }
+        }
 
         private XElement record;
         public XElement Record
@@ -74,11 +81,11 @@ namespace Password.Model
             return sites;
         }
 
-        public void SetRootBySiteName(string siteName, string login)
+        public void SetCurrentRecord(string siteName, string login)
         {
             if (SiteRecordExist(siteName, login))
             {
-                Record = GetRootBySiteName(siteName, login);
+                Record = GetRecordBySiteAndLogin(siteName, login);
                 return;
             }
             Record = null;
@@ -86,7 +93,12 @@ namespace Password.Model
 
         public bool SiteRecordExist(string siteName, string login)
         {
-            return Array.Exists(Sites, siteRecord => siteRecord == siteName);
+            try
+            {
+                GetRecordBySiteAndLogin(siteName, login);
+                return true;
+            }
+            catch { return false; }
         }
 
         public string[] GetSiteLogins(string siteName)
@@ -158,6 +170,7 @@ namespace Password.Model
                 );
         }
 
+
         private void SetSite(string newSiteName)
         {
             Record.Element(Str(NodeName.Site)).Value = newSiteName;
@@ -219,7 +232,7 @@ namespace Password.Model
         }
 
 
-        private XElement GetRootBySiteName(string siteName, string login)
+        private XElement GetRecordBySiteAndLogin(string siteName, string login)
         {
             return Xdoc.Descendants()
                 .Where(tag => tag.Name == Str(NodeName.StorageItem)

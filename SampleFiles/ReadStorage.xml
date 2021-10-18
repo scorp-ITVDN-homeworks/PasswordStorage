@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Storage>
-  <StorageItem ChangingDate="14.10.2021">
+  <StorageItem ChangingDate="18.10.2021">
     <Site>https://otus.ru/</Site>
-    <Login LoginByPhone="true" LoginByMail="false">vagin</Login>
+    <Login LoginByPhone="false" LoginByMail="false">vagin</Login>
     <Mailbox>HansonAbadeer@advtm.ds</Mailbox>
     <PhoneNumber>+79996661313</PhoneNumber>
     <Password IsHide="false">AD\/ent7r3<SettingDate>01.01.2021</SettingDate></Password>

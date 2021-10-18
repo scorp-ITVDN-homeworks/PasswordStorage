@@ -138,7 +138,6 @@ namespace Password.Model
                 SetChangingDate();
                 SetPasswordHide(value);
             }
-        }
-        
+        }        
     }
 }
