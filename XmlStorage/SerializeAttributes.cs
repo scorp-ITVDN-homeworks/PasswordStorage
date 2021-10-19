@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Password.Model
 {
+    //[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Property)]
     public class XmlStorageAttribute : Attribute
     {
         public XmlStorageAttribute(Element elementType, string parent, string nodeName)

@@ -61,14 +61,17 @@ namespace Password.Model
 
         public void RemoveRecord(string site, string login)
         {
-            XElement recordToRemove = Xdoc.Descendants()
-                .Where( 
-                node => node.Name == "StorageItem" 
-                && node.Element(Str(NodeName.Site)).Value == site 
-                && node.Element(Str(NodeName.Login)).Value == login)
-                .First();
+            if (SiteRecordExist(site, login))
+            {
+                XElement recordToRemove = Xdoc.Descendants()
+                    .Where( 
+                    node => node.Name == "StorageItem" 
+                    && node.Element(Str(NodeName.Site)).Value == site 
+                    && node.Element(Str(NodeName.Login)).Value == login)
+                    .First();
 
-            recordToRemove.Remove();
+                recordToRemove.Remove();
+            }
         }
 
         public void RemoveRecord()

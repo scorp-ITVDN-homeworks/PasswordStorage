@@ -11,11 +11,11 @@ using SeemObject;
 
 namespace Password.Model
 {
-    public partial class XmlStorage
+    public partial class XmlStorage : IXmlStorage
     {
         public XmlStorage()
         {
-            
+
         }
 
         public object GetXDoc()
@@ -24,13 +24,13 @@ namespace Password.Model
         }
 
         private void SetXDocSource(string source)
-        {
-            Xdoc = new XDocument();
+        {           
             Xdoc = XDocument.Load(source);
-            Root = xdoc.Descendants().Where(node => node.Name == "Storage").FirstOrDefault();
-        }        
+            Root = xdoc.Descendants().Where(node => node.Name == Str(NodeName.Storage)).FirstOrDefault();
+        }
 
-        public enum NodeName
+
+        private enum NodeName
         {
             Storage,
             StorageItem,
@@ -42,27 +42,29 @@ namespace Password.Model
             SettingDate,
         }
 
-        public enum StorageItemAttr
+        private enum StorageItemAttr
         {
             ChangingDate,
         }
 
-        public enum LoginAttr
+        private enum LoginAttr
         {
             LoginByPhone,
-            LoginByMail,            
+            LoginByMail,
         }
 
-        public enum PasswordAttr
+        private enum PasswordAttr
         {
-            IsHide,            
+            IsHide,
         }
 
+        /* рутовая нода для всего хранилища
+         */
         private XElement root;
         public XElement Root
         {
             get { return root; }
-            set { root = value; }
+            private set { root = value; }
         }
 
         private XElement record;
@@ -73,12 +75,13 @@ namespace Password.Model
         }
 
 
-        private string[] GetSites()
+        private XElement GetRecordBySiteAndLogin(string siteName, string login)
         {
-            string[] sites = (Xdoc.Descendants().
-                Where(tag => tag.Name == Str(NodeName.StorageItem))
-                .Select(tag => { return tag.Element(Str(NodeName.Site)).Value; })).ToArray();
-            return sites;
+            return Xdoc.Descendants()
+                .Where(tag => tag.Name == Str(NodeName.StorageItem)
+                && tag.Element(Str(NodeName.Site)).Value == siteName
+                && tag.Element(Str(NodeName.Login)).Value == login)
+                .ToArray().First();
         }
 
         public void SetCurrentRecord(string siteName, string login)
@@ -101,10 +104,40 @@ namespace Password.Model
             catch { return false; }
         }
 
+
         public string[] GetSiteLogins(string siteName)
         {
             return Xdoc.Descendants().Where(tag => tag.Name == Str(NodeName.Site) && tag.Value == siteName).Select(tag => { return tag.Value; }).ToArray();
         }
+
+        string[] GetSites()
+        {
+            string[] sites = new string[] { };
+
+            var siteXelements = Xdoc.Descendants().
+                    Where(tag => tag.Name == Str(NodeName.StorageItem));
+
+            if (siteXelements.Count() > 0)
+            {
+                sites = siteXelements.Select(tag => SelectSite(tag)).ToArray();
+            }
+
+            return sites;
+        }
+
+        private string SelectSite(XElement tag)
+        {
+            try
+            {
+
+                return tag.Element(Str(NodeName.Site)).Value;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
 
         private string GetSite()
         {
@@ -232,22 +265,8 @@ namespace Password.Model
         }
 
 
-        private XElement GetRecordBySiteAndLogin(string siteName, string login)
-        {
-            return Xdoc.Descendants()
-                .Where(tag => tag.Name == Str(NodeName.StorageItem)
-                && tag.Element(Str(NodeName.Site)).Value == siteName 
-                && tag.Element(Str(NodeName.Login)).Value == login)
-                .ToArray().First();
-        }
 
-        private XElement ReturtnSelection(XElement tag, string siteName)
-        {
-            XElement some = (tag.Element("Site").Value == siteName) ? tag : null;
-            return some;
-        }
-
-        private string Str<T>(T name) where T: Enum
+        private string Str<T>(T name) where T : Enum
         {
             return name.ToString();
         }

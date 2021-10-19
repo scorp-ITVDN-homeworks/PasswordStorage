@@ -12,7 +12,7 @@ using SeemObject;
 
 namespace Password.Model
 {
-    public partial class XmlStorage
+    public partial class XmlStorage : IXmlStorage
     {
         private XDocument xdoc;
         public  XDocument Xdoc
