@@ -5,6 +5,8 @@ using System.Xml.Linq;
 
 namespace SeemObject
 {
+    // как получить интерфейс из класса
+    // https://docs.microsoft.com/ru-ru/visualstudio/ide/reference/extract-interface?view=vs-2019
     public interface IXmlStorage
     {
         XDocument Xdoc { get; }
