@@ -4,7 +4,7 @@ using SeemObject;
 
 namespace PasswordStorage.ViewModel
 {
-    public class StorageVM 
+    public partial class StorageVM 
     {
         private IXmlStorage storageModel;
         public IXmlStorage StorageModel

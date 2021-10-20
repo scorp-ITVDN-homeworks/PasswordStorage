@@ -40,7 +40,9 @@ namespace Password.Model
         {
             get;
             private set;
-        }       
+        }    
+        
+        
 
         public string Site
         {
@@ -76,7 +78,7 @@ namespace Password.Model
         {
             get { return GetPhone(); }
             set 
-            {
+            {                
                 SetChangingDate();
                 SetPhone(value);                
             }
@@ -138,6 +140,14 @@ namespace Password.Model
                 SetChangingDate();
                 SetPasswordHide(value);
             }
-        }        
+        }      
+        
+        private bool RecordExists
+        {
+            get
+            {
+                return Record != null;
+            }
+        }
     }
 }

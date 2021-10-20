@@ -13,50 +13,58 @@ using System.Collections.Specialized;
 
 namespace Password.Model
 {
-    public partial class XmlStorage
-    {
-        private HybridDictionary NewRecordInfo = new HybridDictionary();
-
-        public void SetNewSite(string newSite)              { NewRecordInfo.Add(NodeName.Site,newSite); }
-        public void SetNewLogin(string newLogin)            { NewRecordInfo.Add(NodeName.Login, newLogin); }
-        public void SetNewLoginByMail(bool loginByMail)     { NewRecordInfo.Add(LoginAttr.LoginByMail, loginByMail.ToString().ToLower()); }
-        public void SetNewLoginByPhone(bool loginByPhone)   { NewRecordInfo.Add(LoginAttr.LoginByPhone, loginByPhone.ToString().ToLower()); }
-        public void SetNewMailBox(string mailbox)           { NewRecordInfo.Add(NodeName.Mailbox, mailbox); }
-        public void SetNewPhoneNumber(string phone)         { NewRecordInfo.Add(NodeName.PhoneNumber, phone); }
-        public void SetNewPassword(string password)         { NewRecordInfo.Add(NodeName.Password, password); }
-        public void SetNewIsPasswordHide(bool isHide)       { NewRecordInfo.Add(PasswordAttr.IsHide, isHide.ToString().ToLower()); }
-
-        public int AddNewRecord()
+    public partial class XmlStorage : IXmlStorage
+    { 
+        public void AddNewRecord(string site, string login)
         {
-            if (NewRecordInfo.Count < 0) return -1;
+            if (SiteRecordExist(site, login)) return;
+            CreateBlankRecord();
+            Site = site;
+            Login = login;
+        }
 
+        public void CreateBlankRecord()
+        {
+            string blank = "blank";
             XElement storageItem = new XElement(Str(NodeName.StorageItem));
             XAttribute changingDate = new XAttribute(Str(StorageItemAttr.ChangingDate), DateTime.Now.ToString("dd.MM.yyyy"));
             storageItem.Add(changingDate);
 
-            XElement site = new XElement(Str(NodeName.Site), NewRecordInfo[NodeName.Site]);
+            XElement site = new XElement(Str(NodeName.Site), blank);
 
-            XElement login = new XElement(Str(NodeName.Login), NewRecordInfo[NodeName.Login]);
-            XAttribute loginByMail = new XAttribute(Str(LoginAttr.LoginByMail), NewRecordInfo[LoginAttr.LoginByMail].ToString().ToLower());
-            XAttribute loginByPhone = new XAttribute(Str(LoginAttr.LoginByPhone), NewRecordInfo[LoginAttr.LoginByPhone].ToString().ToLower());
+            XElement login = new XElement(Str(NodeName.Login), blank);
+            XAttribute loginByMail = new XAttribute(Str(LoginAttr.LoginByMail), blank);
+            XAttribute loginByPhone = new XAttribute(Str(LoginAttr.LoginByPhone), blank);
             login.Add(loginByMail);
             login.Add(loginByPhone);
 
-            XElement mailbox = new XElement(Str(NodeName.Mailbox), NewRecordInfo[NodeName.Mailbox]);
-            XElement phoneNumber = new XElement(Str(NodeName.PhoneNumber), NewRecordInfo[NodeName.PhoneNumber]);
+            XElement mailbox = new XElement(Str(NodeName.Mailbox), blank);
+            XElement phoneNumber = new XElement(Str(NodeName.PhoneNumber), blank);
 
-            XElement password = new XElement(Str(NodeName.Password), NewRecordInfo[NodeName.Password]);
-            XAttribute isHide = new XAttribute(Str(PasswordAttr.IsHide), NewRecordInfo[PasswordAttr.IsHide]);
-            XElement settingDate = new XElement(Str(NodeName.SettingDate), DateTime.Now.ToString("dd.MM.yyyy"));
+            XElement password = new XElement(Str(NodeName.Password), blank);
+            XAttribute isHide = new XAttribute(Str(PasswordAttr.IsHide), blank);
+            XElement settingDate = new XElement(Str(NodeName.SettingDate), blank);
             password.Add(isHide);
             password.Add(settingDate);
 
             storageItem.Add(site, login, mailbox, phoneNumber, password);
             Root.Add(storageItem);
 
-            NewRecordInfo.Clear();
+            Record = storageItem;
+        }
 
-            return 1;
+        public void RemoveBlankRecord()
+        {
+            var blankRecord = Root.Descendants().Where(node =>
+            node.Name == Str(NodeName.StorageItem) &&
+            node.Element(Str(NodeName.Site)).Value == "blank"
+            && node.Element(Str(NodeName.Login)).Value == "blank").ToArray();
+
+            int steps = blankRecord.Length;
+            for(int i = 0; i < steps; i++)
+            {
+                blankRecord[i].Remove();
+            }
         }
 
         public void RemoveRecord(string site, string login)
@@ -76,7 +84,8 @@ namespace Password.Model
 
         public void RemoveRecord()
         {
-
-        }
+            Record?.Remove();
+        }        
+        
     }
 }

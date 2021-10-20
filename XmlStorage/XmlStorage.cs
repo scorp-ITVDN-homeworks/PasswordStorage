@@ -59,6 +59,7 @@ namespace Password.Model
         }
 
         /* рутовая нода для всего хранилища
+         * устанавливается в методе SetXDocSource
          */
         private XElement root;
         public XElement Root
@@ -67,6 +68,9 @@ namespace Password.Model
             private set { root = value; }
         }
 
+        /* текущий тег StorageItem
+         * устанавливается через SetCurrentRecord
+         */
         private XElement record;
         public XElement Record
         {
@@ -75,7 +79,7 @@ namespace Password.Model
         }
 
 
-        private XElement GetRecordBySiteAndLogin(string siteName, string login)
+        public XElement GetRecordBySiteAndLogin(string siteName, string login)
         {
             return Xdoc.Descendants()
                 .Where(tag => tag.Name == Str(NodeName.StorageItem)
@@ -96,12 +100,15 @@ namespace Password.Model
 
         public bool SiteRecordExist(string siteName, string login)
         {
-            try
-            {
-                GetRecordBySiteAndLogin(siteName, login);
-                return true;
-            }
-            catch { return false; }
+            var siteRecord = Xdoc.Descendants().Where(tag =>
+                tag.Name == Str(NodeName.StorageItem) &&
+                tag.Element(Str(NodeName.Site)).Value == siteName &&
+                tag.Element(Str(NodeName.Login)).Value == login);
+
+            //int count = siteRecord.Count();
+
+            if (siteRecord.Count() > 0) return true;
+            return false;
         }
 
 
@@ -125,11 +132,12 @@ namespace Password.Model
             return sites;
         }
 
+        /* вспомогательный метод, используется в GetSites()
+         */
         private string SelectSite(XElement tag)
         {
             try
             {
-
                 return tag.Element(Str(NodeName.Site)).Value;
             }
             catch

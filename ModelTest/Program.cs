@@ -12,17 +12,38 @@ namespace ModelTest
     {
         static void Main(string[] args)
         {
-            string xmlFileName = "NewStorage.xml";
-            StorageExists(xmlFileName);
+            DirectoryInfo info = new DirectoryInfo(@"./");
+            string path = @$"{GetProjectDir(info, ".csproj")}\TestXml\TestStorage.xml";
+            string site = "http://somesite.com";
+            string login = "loginBegin";
 
             XmlStorage storage = new XmlStorage();
-            storage.XDocSource = xmlFileName;
+            storage.XDocSource = path;
 
-            storage.RemoveRecord("https://gpsm.ru", "bim-leader");
+            storage.AddNewRecord(site, login);
             storage.Save();
-                
+            //Console.ReadKey();
+            //storage.SetCurrentRecord(site, login);
+            //storage.RemoveRecord();
+            //storage.RemoveRecord(site, login);
+            storage.Save();
 
+            Console.WriteLine("done!");
             Console.ReadKey();
+        }
+
+        static string GetProjectDir(DirectoryInfo currentDir, string extension)
+        {           
+            var filesExtensions = currentDir.GetFiles().Where(file => file.Extension == extension);
+            if (filesExtensions.Any())
+            {
+                return currentDir.FullName;
+            }
+            else
+            {
+                currentDir = Directory.GetParent(currentDir.FullName);
+                return GetProjectDir(currentDir, extension);
+            }
         }
 
         static void CreateXmlInAssemblyFolder()
@@ -68,16 +89,7 @@ namespace ModelTest
             Console.WriteLine("Hide login in viewer? (y/n): ");
             bool hideLogin = Console.ReadLine() == "y" ? true : false;
 
-            xmlStorage.SetNewSite(site);
-            xmlStorage.SetNewLogin(login);
-            xmlStorage.SetNewMailBox(mail);
-            xmlStorage.SetNewPhoneNumber(phone);
-            xmlStorage.SetNewLoginByMail(loginByMail);
-            xmlStorage.SetNewLoginByPhone(loginByPhone);
-            xmlStorage.SetNewPassword(password);
-            xmlStorage.SetNewIsPasswordHide(hideLogin);
-
-            xmlStorage.AddNewRecord();
+            
 
 
             //storage.RemoveRecord("https://geekboards.ru/", "Mechanic");
@@ -100,6 +112,15 @@ namespace ModelTest
         static void RemoveRecord(XmlStorage xmlStorage, string site, string login)
         {
             xmlStorage.RemoveRecord(site, login);
+        }
+
+        static void CreateBlankRecord(XmlStorage xmlStorage)
+        {
+            xmlStorage.CreateBlankRecord();
+
+            xmlStorage.Login = "SomeNewLogin";
+            xmlStorage.Site = "https://somenewsite.com";
+
         }
 
     }

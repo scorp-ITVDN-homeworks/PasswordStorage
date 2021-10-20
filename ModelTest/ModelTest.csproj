@@ -8,10 +8,14 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
+  </PropertyGroup>  
 
   <ItemGroup>
     <ProjectReference Include="..\XmlStorage\XmlStorage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Program.cs" />    
   </ItemGroup>
 
 </Project>

@@ -27,14 +27,14 @@ namespace SeemObject
         bool PasswordIsHide { get; set; }
         string ChangeDate { get; }
 
-        void SetNewSite(string newSite);
-        void SetNewLogin(string newLogin);
-        void SetNewMailBox(string mailbox);
-        void SetNewPhoneNumber(string phone);
-        void SetNewLoginByMail(bool loginByMail);
-        void SetNewLoginByPhone(bool loginByPhone);
-        void SetNewPassword(string password);
-        void SetNewIsPasswordHide(bool isHide);
+        //void SetNewSite(string newSite);
+        //void SetNewLogin(string newLogin);
+        //void SetNewMailBox(string mailbox);
+        //void SetNewPhoneNumber(string phone);
+        //void SetNewLoginByMail(bool loginByMail);
+        //void SetNewLoginByPhone(bool loginByPhone);
+        //void SetNewPassword(string password);
+        //void SetNewIsPasswordHide(bool isHide);
         
 
         string[] Sites { get; }
@@ -43,7 +43,7 @@ namespace SeemObject
         string XDocSource { get; set; }
         object GetXDoc();
         
-        int AddNewRecord();
+        void AddNewRecord(string site, string login);
         void RemoveRecord();
         void RemoveRecord(string site, string login);
         void Save();

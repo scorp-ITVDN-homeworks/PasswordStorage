@@ -3,11 +3,12 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>PasswordStorage.ViewModel</RootNamespace>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IXmlPasswordStorage\SeemObject.csproj" />
+    <ProjectReference Include="..\MVVMadds\MVVMadds.csproj" />
   </ItemGroup>
 
 </Project>

@@ -33,8 +33,10 @@ namespace PasswordStorage
          * Как это сделать?
          * Как записать в манифест и потом получить в коде эти значения?
          */
-        private string modelAssemblyName = "XmlStorage"; // имя сборки модели
+        private string modelAssemblyName = "XmlStorage"; // имя сборки модели должно быть
+        //записано где-то в манифесте?
         private string modelInterfaceName = nameof(IXmlStorage); //имя интерфейса модели
+        
 
         /* метод для получения типа модели из сборки
          */

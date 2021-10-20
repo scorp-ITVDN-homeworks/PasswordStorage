@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Storage>
+  <StorageItem ChangingDate="20.10.2021">
+    <Site>http://somesite.com</Site>
+    <Login LoginByMail="blank" LoginByPhone="blank">loginBegin</Login>
+    <Mailbox>blank</Mailbox>
+    <PhoneNumber>blank</PhoneNumber>
+    <Password IsHide="blank">blank<SettingDate>blank</SettingDate></Password>
+  </StorageItem>
+</Storage>
